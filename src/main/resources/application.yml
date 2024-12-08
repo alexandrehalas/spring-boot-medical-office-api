@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: medical-office-api
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/medical_office_db
+    username: halas
+    password: halas@123
