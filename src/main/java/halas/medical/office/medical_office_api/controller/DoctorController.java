@@ -7,6 +7,8 @@ import halas.medical.office.medical_office_api.doctor.DoctorResponseListDto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class DoctorController {
     }
 
     @GetMapping
-    public List<DoctorResponseListDto> list() {
-        return doctorRepository.findAll().stream().map(DoctorResponseListDto::new).toList();
+    public Page<DoctorResponseListDto> list(Pageable pageable) {
+        return doctorRepository.findAll(pageable).map(DoctorResponseListDto::new);
     }
 
 }
