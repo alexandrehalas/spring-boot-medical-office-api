@@ -4,6 +4,7 @@ import halas.medical.office.medical_office_api.doctor.Doctor;
 import halas.medical.office.medical_office_api.doctor.DoctorDto;
 import halas.medical.office.medical_office_api.doctor.DoctorRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class DoctorController {
 
     @PostMapping
     @Transactional
-    public void register(@RequestBody DoctorDto doctorDto) {
+    public void register(@RequestBody @Valid DoctorDto doctorDto) {
         doctorRepository.save(new Doctor(doctorDto));
     }
 

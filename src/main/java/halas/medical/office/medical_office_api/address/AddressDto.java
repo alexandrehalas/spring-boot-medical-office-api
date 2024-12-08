@@ -1,5 +1,28 @@
 package halas.medical.office.medical_office_api.address;
 
-public record AddressDto(String streetAddress, String neighborhood, String postalCode, String city, String state,
-                         String number, String complement) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public record AddressDto(
+        @NotBlank
+        String streetAddress,
+
+        @NotBlank
+        String neighborhood,
+
+        @NotBlank
+        @Pattern(regexp = "\\d{8}")
+        String postalCode,
+
+        @NotBlank
+        String city,
+
+        @NotBlank
+        String state,
+
+        @NotBlank
+        String number,
+
+        @NotBlank
+        String complement) {
 }
