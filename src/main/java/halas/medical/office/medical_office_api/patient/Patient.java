@@ -1,7 +1,9 @@
 package halas.medical.office.medical_office_api.patient;
 
 import halas.medical.office.medical_office_api.address.Address;
+import halas.medical.office.medical_office_api.controller.PatientRequestUpdateDto;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,4 +40,15 @@ public class Patient {
         this.address = new Address(patientDto.addressDto());
     }
 
+    public void updateData(@Valid PatientRequestUpdateDto patientRequestUpdateDto) {
+        if (patientRequestUpdateDto.name() != null) {
+            this.name = patientRequestUpdateDto.name();
+        }
+        if (patientRequestUpdateDto.phoneNumber() != null) {
+            this.phoneNumber = patientRequestUpdateDto.phoneNumber();
+        }
+        if (patientRequestUpdateDto.address() != null) {
+            this.address.updateData(patientRequestUpdateDto.address());
+        }
+    }
 }

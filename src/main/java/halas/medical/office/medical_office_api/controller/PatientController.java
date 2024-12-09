@@ -30,4 +30,10 @@ public class PatientController {
         return patientRepository.findAll(pageable).map(PatientResponseListDto::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void register(@RequestBody @Valid PatientRequestUpdateDto patientRequestUpdateDto) {
+        var patient = patientRepository.getReferenceById(patientRequestUpdateDto.id());
+        patient.updateData(patientRequestUpdateDto);
+    }
 }
