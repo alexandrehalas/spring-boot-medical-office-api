@@ -32,12 +32,15 @@ public class Patient {
     @Embedded
     private Address address;
 
+    private boolean active;
+
     public Patient(PatientDto patientDto) {
         this.name = patientDto.name();
         this.email = patientDto.email();
         this.phoneNumber = patientDto.phoneNumber();
         this.cpf = patientDto.cpf();
         this.address = new Address(patientDto.addressDto());
+        this.active = true;
     }
 
     public void updateData(@Valid PatientRequestUpdateDto patientRequestUpdateDto) {
@@ -50,5 +53,9 @@ public class Patient {
         if (patientRequestUpdateDto.address() != null) {
             this.address.updateData(patientRequestUpdateDto.address());
         }
+    }
+
+    public void delete() {
+        this.active = false;
     }
 }
