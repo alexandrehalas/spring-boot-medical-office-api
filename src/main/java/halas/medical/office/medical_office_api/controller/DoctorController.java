@@ -1,9 +1,6 @@
 package halas.medical.office.medical_office_api.controller;
 
-import halas.medical.office.medical_office_api.doctor.Doctor;
-import halas.medical.office.medical_office_api.doctor.DoctorDto;
-import halas.medical.office.medical_office_api.doctor.DoctorRepository;
-import halas.medical.office.medical_office_api.doctor.DoctorResponseListDto;
+import halas.medical.office.medical_office_api.doctor.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("doctors")
@@ -30,6 +27,13 @@ public class DoctorController {
     @GetMapping
     public Page<DoctorResponseListDto> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
         return doctorRepository.findAll(pageable).map(DoctorResponseListDto::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid DoctorRequestUpdateDto doctorRequestUpdateDto) {
+        var doctor = doctorRepository.getReferenceById(doctorRequestUpdateDto.id());
+        doctor.updateData(doctorRequestUpdateDto);
     }
 
 }

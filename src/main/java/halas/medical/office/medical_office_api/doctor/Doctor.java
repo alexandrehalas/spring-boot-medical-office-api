@@ -2,6 +2,7 @@ package halas.medical.office.medical_office_api.doctor;
 
 import halas.medical.office.medical_office_api.address.Address;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,5 +43,17 @@ public class Doctor {
         this.crm = doctorDto.crm();
         this.doctorSpecialtyEnum = doctorDto.doctorSpecialtyEnum();
         this.address = new Address(doctorDto.addressDto());
+    }
+
+    public void updateData(@Valid DoctorRequestUpdateDto doctorRequestUpdateDto) {
+        if (doctorRequestUpdateDto.name() != null) {
+            this.name = doctorRequestUpdateDto.name();
+        }
+        if (doctorRequestUpdateDto.phoneNumber() != null) {
+            this.phoneNumber = doctorRequestUpdateDto.phoneNumber();
+        }
+        if (doctorRequestUpdateDto.address() != null) {
+            this.address.updateData(doctorRequestUpdateDto.address());
+        }
     }
 }

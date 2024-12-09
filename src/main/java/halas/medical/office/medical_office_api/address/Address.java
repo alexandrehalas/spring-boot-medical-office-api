@@ -28,4 +28,29 @@ public class Address {
         this.number = addressDto.number();
         this.complement = addressDto.complement();
     }
+
+    public void updateData(Address address) {
+        if (address.streetAddress != null) {
+            this.streetAddress = address.getStreetAddress();
+        }
+        if (address.neighborhood != null) {
+            this.neighborhood = address.getNeighborhood();
+        }
+        if (address.postalCode != null) {
+            this.postalCode = address.getPostalCode();
+        }
+        if (address.city != null) {
+            this.city = address.getCity();
+        }
+        if (address.state != null) {
+            this.state = address.getState();
+        }
+        if (address.number != null) {
+            this.number = address.getNumber();
+        }
+        if (address.complement != null) {
+            this.complement = address.getComplement();
+        }
+    }
+
 }
