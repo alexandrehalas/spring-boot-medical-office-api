@@ -1,9 +1,6 @@
 package halas.medical.office.medical_office_api.controller;
 
-import halas.medical.office.medical_office_api.patient.Patient;
-import halas.medical.office.medical_office_api.patient.PatientDto;
-import halas.medical.office.medical_office_api.patient.PatientRepository;
-import halas.medical.office.medical_office_api.patient.PatientResponseListDto;
+import halas.medical.office.medical_office_api.patient.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("patients")
@@ -22,28 +20,40 @@ public class PatientController {
 
     @PostMapping
     @Transactional
-    public void register(@RequestBody @Valid PatientDto patientDto) {
-        patientRepository.save(new Patient(patientDto));
+    public ResponseEntity<PatientResponseDetailDto> register(@RequestBody @Valid PatientDto patientDto, UriComponentsBuilder uriComponentsBuilder) {
+        var patient = patientRepository.save(new Patient(patientDto));
+        var uri = uriComponentsBuilder.path("/patients/{id}").buildAndExpand(patient.getId()).toUri();
+        return ResponseEntity.created(uri).body(new PatientResponseDetailDto(patient));
     }
 
     @GetMapping
-    public Page<PatientResponseListDto> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
-        return patientRepository.findAllByActiveTrue(pageable).map(PatientResponseListDto::new);
+    public ResponseEntity<Page<PatientResponseListDto>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+        var patientResponseListDtos = patientRepository.findAllByActiveTrue(pageable).map(PatientResponseListDto::new);
+        return ResponseEntity.ok(patientResponseListDtos);
     }
 
     @PutMapping
     @Transactional
-    public void register(@RequestBody @Valid PatientRequestUpdateDto patientRequestUpdateDto) {
+    public ResponseEntity<PatientResponseDetailDto> register(@RequestBody @Valid PatientRequestUpdateDto patientRequestUpdateDto) {
         var patient = patientRepository.getReferenceById(patientRequestUpdateDto.id());
         patient.updateData(patientRequestUpdateDto);
+
+        return ResponseEntity.ok(new PatientResponseDetailDto(patient));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity delete(@PathVariable Long id) {
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
         var patient = patientRepository.getReferenceById(id);
         patient.delete();
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PatientResponseDetailDto> detail(@PathVariable Long id) {
+        var patient = patientRepository.getReferenceById(id);
+
+        return ResponseEntity.ok(new PatientResponseDetailDto(patient));
     }
 }
