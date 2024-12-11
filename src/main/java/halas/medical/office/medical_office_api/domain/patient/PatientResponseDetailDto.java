@@ -1,6 +1,6 @@
-package halas.medical.office.medical_office_api.patient;
+package halas.medical.office.medical_office_api.domain.patient;
 
-import halas.medical.office.medical_office_api.address.Address;
+import halas.medical.office.medical_office_api.domain.address.Address;
 
 public record PatientResponseDetailDto(Long id, String name, String email, String phoneNumber, String cpf,
                                        Address address) {

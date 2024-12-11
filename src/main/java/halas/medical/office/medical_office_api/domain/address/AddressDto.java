@@ -1,4 +1,4 @@
-package halas.medical.office.medical_office_api.address;
+package halas.medical.office.medical_office_api.domain.address;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

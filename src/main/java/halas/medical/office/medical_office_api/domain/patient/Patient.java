@@ -1,6 +1,6 @@
-package halas.medical.office.medical_office_api.patient;
+package halas.medical.office.medical_office_api.domain.patient;
 
-import halas.medical.office.medical_office_api.address.Address;
+import halas.medical.office.medical_office_api.domain.address.Address;
 import halas.medical.office.medical_office_api.controller.PatientRequestUpdateDto;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;

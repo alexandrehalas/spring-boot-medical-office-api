@@ -1,7 +1,7 @@
-package halas.medical.office.medical_office_api.patient;
+package halas.medical.office.medical_office_api.domain.patient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import halas.medical.office.medical_office_api.address.AddressDto;
+import halas.medical.office.medical_office_api.domain.address.AddressDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,6 @@
-package halas.medical.office.medical_office_api.doctor;
+package halas.medical.office.medical_office_api.domain.doctor;
 
-import halas.medical.office.medical_office_api.address.Address;
+import halas.medical.office.medical_office_api.domain.address.Address;
 
 public record DoctorResponseDetailDto(Long id, String name, String email, String crm, DoctorSpecialtyEnum doctorSpecialtyEnum, Address address) {
 

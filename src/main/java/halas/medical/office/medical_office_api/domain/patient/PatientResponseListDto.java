@@ -1,4 +1,4 @@
-package halas.medical.office.medical_office_api.patient;
+package halas.medical.office.medical_office_api.domain.patient;
 
 public record PatientResponseListDto(Long id, String name, String email, String cpf) {
 

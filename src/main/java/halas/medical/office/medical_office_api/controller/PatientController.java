@@ -1,6 +1,6 @@
 package halas.medical.office.medical_office_api.controller;
 
-import halas.medical.office.medical_office_api.patient.*;
+import halas.medical.office.medical_office_api.domain.patient.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

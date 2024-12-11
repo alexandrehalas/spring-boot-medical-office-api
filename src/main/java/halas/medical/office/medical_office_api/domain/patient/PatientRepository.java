@@ -1,4 +1,4 @@
-package halas.medical.office.medical_office_api.patient;
+package halas.medical.office.medical_office_api.domain.patient;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

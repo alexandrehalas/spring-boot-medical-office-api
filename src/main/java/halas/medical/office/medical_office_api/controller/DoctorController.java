@@ -1,6 +1,6 @@
 package halas.medical.office.medical_office_api.controller;
 
-import halas.medical.office.medical_office_api.doctor.*;
+import halas.medical.office.medical_office_api.domain.doctor.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("doctors")

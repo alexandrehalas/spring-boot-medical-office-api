@@ -1,6 +1,6 @@
 package halas.medical.office.medical_office_api.controller;
 
-import halas.medical.office.medical_office_api.address.Address;
+import halas.medical.office.medical_office_api.domain.address.Address;
 import jakarta.validation.constraints.NotNull;
 
 public record PatientRequestUpdateDto(
