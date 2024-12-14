@@ -3,6 +3,7 @@ package halas.medical.office.medical_office_api.infra.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,6 +29,8 @@ public class SecurityConfigurations {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE, "/doctors/*").hasRole("ADMIN");
+                    authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE, "/patients/*").hasRole("ADMIN");
                     authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
