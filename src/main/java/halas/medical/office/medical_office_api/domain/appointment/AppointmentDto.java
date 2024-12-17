@@ -1,5 +1,6 @@
 package halas.medical.office.medical_office_api.domain.appointment;
 
+import halas.medical.office.medical_office_api.domain.doctor.DoctorSpecialtyEnum;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,5 +14,7 @@ public record AppointmentDto(
 
         @NotNull
         @Future
-        LocalDateTime appointmentDate) {
+        LocalDateTime appointmentDate,
+
+        DoctorSpecialtyEnum doctorSpecialtyEnum) {
 }

@@ -33,4 +33,12 @@ public class Appointment {
 
     @JsonProperty("appointment_date")
     private LocalDateTime appointmentDate;
+
+    @Column(name = "cancelation_reason")
+    @Enumerated(EnumType.STRING)
+    private CancelationReasonEnum cancelationReasonEnum;
+
+    public void cancel(CancelationReasonEnum cancelationReasonEnum) {
+        this.cancelationReasonEnum = cancelationReasonEnum;
+    }
 }
