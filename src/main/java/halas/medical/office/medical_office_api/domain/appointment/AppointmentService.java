@@ -1,7 +1,8 @@
 package halas.medical.office.medical_office_api.domain.appointment;
 
 import halas.medical.office.medical_office_api.domain.BusinessException;
-import halas.medical.office.medical_office_api.domain.appointment.validations.AppointmentValidation;
+import halas.medical.office.medical_office_api.domain.appointment.validations.cancel.CancelAppointmentValidation;
+import halas.medical.office.medical_office_api.domain.appointment.validations.schedule.ScheduleValidation;
 import halas.medical.office.medical_office_api.domain.doctor.Doctor;
 import halas.medical.office.medical_office_api.domain.doctor.DoctorRepository;
 import halas.medical.office.medical_office_api.domain.patient.PatientRepository;
@@ -19,7 +20,8 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
-    private final List<AppointmentValidation> appointmentValidations;
+    private final List<ScheduleValidation> scheduleValidations;
+    private final List<CancelAppointmentValidation> cancelAppointmentValidations;
 
     public AppointmentResponseDetailDto schedule(AppointmentDto appointmentDto) {
 
@@ -31,7 +33,7 @@ public class AppointmentService {
             throw new BusinessException("Doctor not found with ID: " + appointmentDto.idDoctor());
         }
 
-        appointmentValidations.forEach(appointmentValidation -> appointmentValidation.validate(appointmentDto));
+        scheduleValidations.forEach(appointmentValidation -> appointmentValidation.validate(appointmentDto));
 
         var patient = patientRepository.getReferenceById(appointmentDto.idPatient());
         var doctor = chooseDoctor(appointmentDto);
@@ -65,6 +67,8 @@ public class AppointmentService {
         if (!appointmentRepository.existsById(cancelAppointmentDto.idAppointment())) {
             throw new BusinessException("Appointment not found with ID: " + cancelAppointmentDto.idAppointment());
         }
+
+        cancelAppointmentValidations.forEach(cancelAppointmentValidation -> cancelAppointmentValidation.validate(cancelAppointmentDto));
 
         var appointment = appointmentRepository.getReferenceById(cancelAppointmentDto.idAppointment());
 

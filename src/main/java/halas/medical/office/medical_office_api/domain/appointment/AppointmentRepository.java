@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    boolean existsByDoctorIdAndAppointmentDate(Long idDoctor, LocalDateTime appointmentDate);
+    boolean existsByDoctorIdAndAppointmentDateAndCancelationReasonEnumIsNull(Long idDoctor, LocalDateTime appointmentDate);
 }

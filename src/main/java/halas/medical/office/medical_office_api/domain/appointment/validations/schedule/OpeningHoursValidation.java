@@ -1,4 +1,4 @@
-package halas.medical.office.medical_office_api.domain.appointment.validations;
+package halas.medical.office.medical_office_api.domain.appointment.validations.schedule;
 
 import halas.medical.office.medical_office_api.domain.BusinessException;
 import halas.medical.office.medical_office_api.domain.appointment.AppointmentDto;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 
 @Component
-public class OpeningHoursValidation implements AppointmentValidation {
+public class OpeningHoursValidation implements ScheduleValidation {
 
     @Override
     public void validate(AppointmentDto appointmentDto) {

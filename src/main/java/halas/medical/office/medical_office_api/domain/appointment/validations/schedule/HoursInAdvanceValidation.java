@@ -1,4 +1,4 @@
-package halas.medical.office.medical_office_api.domain.appointment.validations;
+package halas.medical.office.medical_office_api.domain.appointment.validations.schedule;
 
 import halas.medical.office.medical_office_api.domain.BusinessException;
 import halas.medical.office.medical_office_api.domain.appointment.AppointmentDto;
@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Component
-public class HoursInAdvanceValidation implements AppointmentValidation {
+public class HoursInAdvanceValidation implements ScheduleValidation {
 
     @Override
     public void validate(AppointmentDto appointmentDto) {

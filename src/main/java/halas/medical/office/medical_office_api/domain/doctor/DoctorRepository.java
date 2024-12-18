@@ -22,7 +22,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
                 and d.id not in (
                     select a.doctor.id
                     from Appointment a
-                    where a.appointmentDate = :appointmentDate
+                    where
+                        a.appointmentDate = :appointmentDate
+                        and a.cancelationReasonEnum is null
                 )
                 order by rand()
                 limit 1

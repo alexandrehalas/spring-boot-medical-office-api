@@ -1,4 +1,4 @@
-package halas.medical.office.medical_office_api.domain.appointment.validations;
+package halas.medical.office.medical_office_api.domain.appointment.validations.schedule;
 
 import halas.medical.office.medical_office_api.domain.appointment.AppointmentDto;
 import halas.medical.office.medical_office_api.domain.doctor.DoctorRepository;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DoctorActiveValidation implements AppointmentValidation {
+public class DoctorActiveValidation implements ScheduleValidation {
 
     private final DoctorRepository doctorRepository;
 
