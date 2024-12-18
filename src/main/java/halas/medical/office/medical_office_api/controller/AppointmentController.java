@@ -22,9 +22,9 @@ public class AppointmentController {
     @Transactional
     public ResponseEntity<AppointmentResponseDetailDto> schedule(@RequestBody @Valid AppointmentDto appointmentDto, UriComponentsBuilder uriComponentsBuilder) {
 
-        appointmentService.schedule(appointmentDto);
+        var schedule = appointmentService.schedule(appointmentDto);
 
-        return ResponseEntity.ok(new AppointmentResponseDetailDto(null, null, null, null));
+        return ResponseEntity.ok(schedule);
     }
 
     @DeleteMapping

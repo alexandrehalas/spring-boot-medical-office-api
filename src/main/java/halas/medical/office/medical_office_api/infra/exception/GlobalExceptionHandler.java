@@ -1,5 +1,6 @@
 package halas.medical.office.medical_office_api.infra.exception;
 
+import halas.medical.office.medical_office_api.domain.BusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> errorHandlerBadRequest400(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> errorHandlerBusinessException400(BusinessException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 

@@ -3,12 +3,15 @@ package halas.medical.office.medical_office_api.domain.appointment.validations;
 import halas.medical.office.medical_office_api.domain.appointment.AppointmentDto;
 import halas.medical.office.medical_office_api.domain.patient.PatientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
-public class PatientActiveValidation {
+public class PatientActiveValidation implements AppointmentValidation {
 
     private final PatientRepository patientRepository;
 
+    @Override
     public void validate(AppointmentDto appointmentDto) {
 
         if (appointmentDto.idPatient() == null) {

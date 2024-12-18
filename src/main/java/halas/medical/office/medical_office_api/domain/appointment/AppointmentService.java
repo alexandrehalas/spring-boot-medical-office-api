@@ -1,12 +1,15 @@
 package halas.medical.office.medical_office_api.domain.appointment;
 
 import halas.medical.office.medical_office_api.domain.BusinessException;
+import halas.medical.office.medical_office_api.domain.appointment.validations.AppointmentValidation;
 import halas.medical.office.medical_office_api.domain.doctor.Doctor;
 import halas.medical.office.medical_office_api.domain.doctor.DoctorRepository;
 import halas.medical.office.medical_office_api.domain.patient.PatientRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,21 +19,32 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
-    public void schedule(AppointmentDto appointmentDto) {
+    private final List<AppointmentValidation> appointmentValidations;
 
-        if (patientRepository.existsById(appointmentDto.idPatient())) {
+    public AppointmentResponseDetailDto schedule(AppointmentDto appointmentDto) {
+
+        if (!patientRepository.existsById(appointmentDto.idPatient())) {
             throw new BusinessException("Patient not found with ID: " + appointmentDto.idPatient());
         }
 
-        if (appointmentDto.idDoctor() != null && doctorRepository.existsById(appointmentDto.idDoctor())) {
+        if (appointmentDto.idDoctor() != null && !doctorRepository.existsById(appointmentDto.idDoctor())) {
             throw new BusinessException("Doctor not found with ID: " + appointmentDto.idDoctor());
         }
 
+        appointmentValidations.forEach(appointmentValidation -> appointmentValidation.validate(appointmentDto));
+
         var patient = patientRepository.getReferenceById(appointmentDto.idPatient());
         var doctor = chooseDoctor(appointmentDto);
+
+        if (doctor == null) {
+            throw new BusinessException("Doctor not available on this date");
+        }
+
         var appointment = new Appointment(null, doctor, patient, appointmentDto.appointmentDate(), null);
 
         appointmentRepository.save(appointment);
+
+        return new AppointmentResponseDetailDto(appointment);
     }
 
     private Doctor chooseDoctor(AppointmentDto appointmentDto) {
@@ -43,10 +57,7 @@ public class AppointmentService {
             throw new BusinessException("Doctor's specialty is mandatory when the doctor is not chosen");
         }
 
-        doctorRepository.findRandomDoctorAvailableOnTheDate(appointmentDto.doctorSpecialtyEnum(), appointmentDto.appointmentDate());
-
-        return null;
-
+        return doctorRepository.findRandomDoctorAvailableOnTheDate(appointmentDto.doctorSpecialtyEnum(), appointmentDto.appointmentDate());
     }
 
     public void cancel(@Valid CancelAppointmentDto cancelAppointmentDto) {

@@ -2,12 +2,15 @@ package halas.medical.office.medical_office_api.domain.appointment.validations;
 
 import halas.medical.office.medical_office_api.domain.BusinessException;
 import halas.medical.office.medical_office_api.domain.appointment.AppointmentDto;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class HoursInAdvanceValidation {
+@Component
+public class HoursInAdvanceValidation implements AppointmentValidation {
 
+    @Override
     public void validate(AppointmentDto appointmentDto) {
 
         var appointmentDate = appointmentDto.appointmentDate();
