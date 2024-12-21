@@ -29,6 +29,7 @@ public class SecurityConfigurations {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE, "/doctors/*").hasRole("ADMIN");
                     authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE, "/patients/*").hasRole("ADMIN");
                     authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();

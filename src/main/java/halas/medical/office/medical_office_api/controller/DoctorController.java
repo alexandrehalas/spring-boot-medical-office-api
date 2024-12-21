@@ -1,6 +1,8 @@
 package halas.medical.office.medical_office_api.controller;
 
 import halas.medical.office.medical_office_api.domain.doctor.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("doctors")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class DoctorController {
 
     private final DoctorRepository doctorRepository;
